@@ -25,6 +25,14 @@ import InfoTestCustomHooks9 from "./ch8_hooksTest/InfoTestCustomHooks9";
 import TestSass from "./ch9_component/TestSass";
 import StyledComponentsTest from "./ch9_component/StyledComponentsTest";
 import TodoMain from "./ch10_TodoTest/TodoMain";
+import ImmerTest from "./ch12_immerTest/ImmerTest";
+import TestZone2 from "./ch12_immerTest/TestZone2";
+import ApiTest from "./ch13_API_PublicDataTest/ApiTest";
+import ApiTestKoreaNews from "./ch13_API_PublicDataTest/ApiTestKoreaNews";
+import MainNews from "./ch13_API_PublicDataTest/component/MainNews";
+import NewsPage from "./ch13_API_PublicDataTest/page/NewsPage";
+import TestColorBox from "./ch14_ContextAPITest/TestColorBox";
+import TestColorMain from "./ch14_ContextAPITest/TestColorMain";
 
 function App() {
   return (
@@ -55,6 +63,14 @@ function App() {
         <Route path="sassTest" element={<TestSass />} />
         <Route path="styledComponentsTest" element={<StyledComponentsTest />} />
         <Route path="todoMain" element={<TodoMain />} />
+        <Route path="immerTest" element={<ImmerTest />} />
+        <Route path="immerTestZone" element={<TestZone2 />} />
+        <Route path="apiTest" element={<ApiTest />} />
+        <Route path="apiTest2" element={<ApiTestKoreaNews />} />
+        {/* <Route path="apiTest3" element={<MainNews />} /> */}
+        <Route path="newsPageTest/:category" element={<NewsPage />} />
+        <Route path="contextAPITest" element={<TestColorMain />} />
+      {/* <Route path="contextAPITest" element={<TestColorBox />} /> */}
       </Routes>
     </BrowserRouter>
   );

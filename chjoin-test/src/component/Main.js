@@ -243,6 +243,76 @@ const Main = () => {
           >
             todoMain 미니프로젝트
           </Button>
+          <br />
+          <Button
+            title="immerTest"
+            type="primary"
+            onClick={() => {
+              navigate("/immerTest");
+            }}
+          >
+            immerTest, 불변성 쉽게 유지
+          </Button>
+          <br />
+          <Button
+            title="immerTestZone"
+            type="primary"
+            onClick={() => {
+              navigate("/immerTestZone");
+            }}
+          >
+            immerTestZone, 불변성 쉽게 유지
+          </Button>
+          <br />
+          <Button
+            title="apiTest"
+            type="primary"
+            onClick={() => {
+              navigate("/apiTest");
+            }}
+          >
+            apiTest 확인
+          </Button>
+          <br />
+          <Button
+            title="apiTest2"
+            type="primary"
+            onClick={() => {
+              navigate("/apiTest2");
+            }}
+          >
+            apiTest2 확인
+          </Button>
+          <br />
+          <Button
+            title="apiTest3"
+            type="primary"
+            onClick={() => {
+              navigate("/apiTest3");
+            }}
+          >
+            apiTest3 확인
+          </Button>
+          <br />
+          <Button
+            title="newsPageTest/:category"
+            type="primary"
+            onClick={() => {
+              navigate("/newsPageTest/all");
+            }}
+          >
+            newsPageTest/:category 확인
+          </Button>
+          <br />
+          <Button
+            title="contextAPITest"
+            type="primary"
+            onClick={() => {
+              navigate("/contextAPITest");
+            }}
+          >
+            contextAPITest 확인
+          </Button>
         </Container>
       </div>
     </Wrapper>
