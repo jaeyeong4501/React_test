@@ -76,16 +76,37 @@ const RemoveCss = styled.div`
   }
 `;
 
+//가상 페이징 처리하는 클래스 style-components 추가하기.
+const ListvirtualizedCss = styled.div`
+  /* 각 목록요소가 출력이 될때, 구분선 넣기 */
+  & + & {
+    border-top: 1px solid #dee2e6;
+  }
+  &:nth-child(even) {
+    background: #f8f9fa;
+  }
+`;
+
 // 부모 컴포넌트 TodoList 로 부터 전달 받은 속성
 // <TodoListItem todo={todo} key={todo.id} />
 // todo = {id:1, text="내용", checked : true}
 
-//지우는 기능을 함수를 전달받아서, 사용하기.
-//<TodoListItem todo = {todo} key={todo.id} onRemove = {onRemove}/>
-const TodoListItem = ({ todo,onRemove }) => {
+// 지우는 기능을 함수를 전달 받아서, 사용하기.
+// <TodoListItem todo={todo} key={todo.id} onRemove={onRemove} />
+
+// 체크하는 기능을 함수를 전달 받아서, 사용하기.
+// <TodoListItem todo={todo} key={todo.id} onRemove={onRemove} onToggle={onToggle} />
+
+// 페이징 처리, 추가 부분, style
+const TodoListItem = ({ todo, onRemove, onToggle, style }) => {
   // const text = todo.text
   // const checked = todo.checked
-  const { text, checked } = todo;
+  // const id = todo.id
+
+  // 삭제를 할려면, 그 요소를 선택하기.
+  // 어느 요소를 삭제할지를 시스템에 알려줘야 함.
+  // 예) todo id = 1, id = 2
+  const { id, text, checked } = todo;
   return (
     // 부모로 부터 받은 더미 데이터를 사용하면 됨.
     // 전달.
@@ -94,28 +115,38 @@ const TodoListItem = ({ todo,onRemove }) => {
     // 조건부 렌더링 하기.
     // 도구를 사용하기.  classnames 모듈이 이용해서, 쉽게 조건부 렌더링 하기.
     //
-    <TodoListItemCss>
-      {/* cn 이용하면, checkbox라는 속성이  checked 의 속성에 의해서 
+    // 페이징 추가, 기존의 아이템 요소 css 부분을 감싸주기.
+    <ListvirtualizedCss className="TodoListItem-virtualized" style={style}>
+      <TodoListItemCss>
+        {/* cn 이용하면, checkbox라는 속성이  checked 의 속성에 의해서 
       true 이면 , className에 등록이 되고, 
       false 이면 , className에 등록이 안됨,  */}
-      <CheckboxCss className={cn("checkbox", { checked })}>
-        {/* 체크박스의 상태를 표시하는 checked 변수를 기준으로, 
+
+        {/* 체크하는 함수 적용하기 onClick={() => onToggle(id) */}
+
+        <CheckboxCss
+          className={cn("checkbox", { checked })}
+          onClick={() => onToggle(id)}
+        >
+          {/* 체크박스의 상태를 표시하는 checked 변수를 기준으로, 
         조건이 true : MdCheckBox 를 사용하고 
         조건이 false : MdCheckBoxOutlineBlank 를 사용하기 */}
 
-        {/* 조건부 렌더링 cn 이용해서 하기.  */}
-        {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+          {/* 조건부 렌더링 cn 이용해서 하기.  */}
+          {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
 
-        {/* 조건이 true : MdCheckBox 를 사용하고  */}
-        {/* 더미데이터 내용중 text 가져오기 */}
-        {/* <TextCss>샘플 할일</TextCss> */}
-        <TextCss className="text">{text}</TextCss>
-      </CheckboxCss>
-      <RemoveCss>
-        <MdRemoveCircleOutline />
-      </RemoveCss>
-    </TodoListItemCss>
+          {/* 조건이 true : MdCheckBox 를 사용하고  */}
+          {/* 더미데이터 내용중 text 가져오기 */}
+          {/* <TextCss>샘플 할일</TextCss> */}
+          <TextCss className="text">{text}</TextCss>
+        </CheckboxCss>
+        <RemoveCss onClick={() => onRemove(id)}>
+          <MdRemoveCircleOutline />
+        </RemoveCss>
+      </TodoListItemCss>
+    </ListvirtualizedCss>
   );
 };
 
-export default TodoListItem;
+// 맨 마지막에서, 디폴트 부분 React.memo 적용해서, 1차 성능 개선확인.
+export default React.memo(TodoListItem);
